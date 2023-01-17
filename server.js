@@ -16,7 +16,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-require('dotenv').config();
+const dotenv = require('dotenv').config();
 //setup date base
 const MoviesDB = require("./modules/moviesDB.js")
 const db = new MoviesDB();
@@ -32,7 +32,7 @@ app.use(cors());
 /**************************************************************************** */
 //home page
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'));
+    res.json({message: "API Listening"});
 })
 
 //add a new movie document to collection of MongoDB
@@ -101,11 +101,14 @@ app.use((req, res) => {
 });
 
 //listening for requests with init the data base
-db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
+
+db.initialize(process.env.MONGODB_CONN_STRING)
+.then(()=>{
     app.listen(HTTP_PORT, ()=>{
         console.log(`server listening on: ${HTTP_PORT}`);
     });
-}).catch((err)=>{
+})
+.catch((err)=>{
     console.log(err);
 });
 
