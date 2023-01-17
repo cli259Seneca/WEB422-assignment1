@@ -20,7 +20,6 @@ require('dotenv').config();
 //setup date base
 const MoviesDB = require("./modules/moviesDB.js")
 const db = new MoviesDB();
-process.env.MONGODB_CONN_STRING = "mongodb+srv://me:abc12345678@cluster0.nnjgzdj.mongodb.net/sample_mflix?retryWrites=true&w=majority"
 //app and port
 const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
