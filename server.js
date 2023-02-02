@@ -16,7 +16,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 //setup date base
 const MoviesDB = require("./modules/moviesDB.js")
 const db = new MoviesDB();
@@ -55,7 +55,7 @@ app.get("/api/movies", (req, res)=>{
         res.json(mov);
     })
     .catch((err) => {
-        res.json(err);
+        res.status(500).json(err);
     });
 })
 
@@ -67,7 +67,7 @@ app.get("/api/movies/:_id", (req, res)=>{
         res.json(mov)
     })
     .catch(()=>{
-        res.json({message: `Fail to load movie ${req.params._id}`});
+        res.status(500).json({message: `Fail to load movie ${req.params._id}`});
     });
 })
 
@@ -79,7 +79,7 @@ app.put("/api/movies/:_id", (req, res)=>{
         res.json({message: `Movie updates successfully!`})
     })
     .catch(()=>{
-        res.json({message: `Fail to update movie ${req.params._id}`});
+        res.status(500).json({message: `Fail to update movie ${req.params._id}`});
     });
 })
 
@@ -87,8 +87,8 @@ app.put("/api/movies/:_id", (req, res)=>{
 //ie: /api/movies/573a1391f29313caabcd956e
 app.delete("/api/movies/:_id", (req, res)=>{
     db.deleteMovieById(req.params._id)
-    .then(((mov)=>{
-        res.status(201).json({message: `Movie is deleted`})
+    .then((()=>{
+        res.status(204).end();
     }))
     .catch(()=>{
         res.status(500).json({message: `Fail to delete movie ${req.params._id}`});
