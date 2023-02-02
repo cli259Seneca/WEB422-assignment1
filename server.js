@@ -67,7 +67,7 @@ app.get("/api/movies/:_id", (req, res)=>{
         res.json(mov)
     })
     .catch(()=>{
-        res.status(500).json({message: `Fail to load movie ${req.params._id}`});
+       res.status(500).json({message: `Fail to load movie ${req.params._id}`});
     });
 })
 
@@ -88,7 +88,7 @@ app.put("/api/movies/:_id", (req, res)=>{
 app.delete("/api/movies/:_id", (req, res)=>{
     db.deleteMovieById(req.params._id)
     .then((()=>{
-        res.status(204).end();
+        res.status(201).json({message: `Movie is deleted`})
     }))
     .catch(()=>{
         res.status(500).json({message: `Fail to delete movie ${req.params._id}`});
