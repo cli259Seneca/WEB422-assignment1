@@ -60,7 +60,7 @@ app.get("/api/movies", (req, res)=>{
 })
 
 //return the specific movie of the given id
-//ie: /api/movies/573a1391f29313caabcd956e
+//ie: /api/movies/573a139af29313caabcf075d
 app.get("/api/movies/:_id", (req, res)=>{
     db.getMovieById(req.params._id)
     .then((mov) => {
